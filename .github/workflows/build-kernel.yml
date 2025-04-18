@@ -106,31 +106,31 @@ jobs:
       if: env.USE_CUSTOM_CLANG == 'true'
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
-        if [[ "${{ env.CLANG_SOURCE }}" == *".git" ]]; then
-            git clone ${{ env.CLANG_SOURCE }} -b ${{ env.CLANG_BRANCH }} clang-custom --depth=1
-          elif [[ "${{ env.CLANG_SOURCE }}" == *'.tar.gz' ]]; then
-            wget -O clang.tar.gz ${{ env.CLANG_SOURCE }}
+        if [[ "${{ env.CUSTOM_CLANG_SOURCE }}" == *".git" ]]; then
+            git clone ${{ env.CUSTOM_CLANG_SOURCE }} -b ${{ env.CUSTOM_CLANG_BRANCH }} clang-custom --depth=1
+          elif [[ "${{ env.CUSTOM_CLANG_SOURCE }}" == *'.tar.gz' ]]; then
+            wget -O clang.tar.gz ${{ env.CUSTOM_CLANG_SOURCE }}
             mkdir clang-custom
             tar -C clang-custom/ -zxvf clang.tar.gz
-          elif [[ "${{ env.CLANG_SOURCE }}" == *'.tar.zst' ]]; then
-            wget -O clang.tar.zst ${{ env.CLANG_SOURCE }}
+          elif [[ "${{ env.CUSTOM_CLANG_SOURCE }}" == *'.tar.zst' ]]; then
+            wget -O clang.tar.zst ${{ env.CUSTOM_CLANG_SOURCE }}
             mkdir clang-custom
             tar --use-compress-program=unzstd -xvf clang.tar.zst -C clang-custom/
-          elif [[ "${{ env.CLANG_SOURCE }}" == *'.tar.xz' ]]; then
-            wget -O clang.tar.xz ${{ env.CLANG_SOURCE }}
+          elif [[ "${{ env.CUSTOM_CLANG_SOURCE }}" == *'.tar.xz' ]]; then
+            wget -O clang.tar.xz ${{ env.CUSTOM_CLANG_SOURCE }}
             mkdir clang-custom
             tar -C clang-custom/ -xvf clang.tar.xz --strip-components 1
-          elif [[ "${{ env.CLANG_SOURCE }}" == *'.zip' ]]; then
-            wget -O clang.zip ${{ env.CLANG_SOURCE }}
+          elif [[ "${{ env.CUSTOM_CLANG_SOURCE }}" == *'.zip' ]]; then
+            wget -O clang.zip ${{ env.CUSTOM_CLANG_SOURCE }}
             mkdir clang-custom
             unzip clang.zip -d clang-custom/
-          elif [[ "${{ env.CLANG_SOURCE }}" == *'.7z' ]]; then
-            wget -O clang-custom.7z ${{ env.CLANG_SOURCE }}
+          elif [[ "${{ env.CUSTOM_CLANG_SOURCE }}" == *'.7z' ]]; then
+            wget -O clang-custom.7z ${{ env.CUSTOM_CLANG_SOURCE }}
             7z x clang-custom.7z
-          elif [[ "${{ env.CLANG_SOURCE }}" == *"antman" ]]; then
+          elif [[ "${{ env.CUSTOM_CLANG_SOURCE }}" == *"antman" ]]; then
             mkdir clang-custom
             cd clang-custom
-            wget ${{ env.CLANG_SOURCE }} -O antman
+            wget ${{ env.CUSTOM_CLANG_SOURCE }} -O antman
             chmod +x antman
             bash antman -S
           else
