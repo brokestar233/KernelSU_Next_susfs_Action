@@ -328,7 +328,7 @@ jobs:
         make -j$(nproc --all) CC=clang O=out ARCH=${{ env.ARCH }} ${{ env.CUSTOM_CMDS }} ${{ env.EXTRA_CMDS }} ${{ env.GCC_64 }} ${{ env.GCC_32 }} ${{ env.KERNEL_CONFIG }}
         if [[ "${{ env.MERGE_CONFIG }}" == "true" ]]; then
           cd out
-          ./scripts/kconfig/merge_config.sh -m .config ../arch/${{ env.ARCH }}/configs/${{ env.NEW_OPTIONS_PATH }}
+          ../scripts/kconfig/merge_config.sh -m .config ../arch/${{ env.ARCH }}/configs/${{ env.NEW_OPTIONS_PATH }}
           cd ..
         fi
         if [ ${{ env.ENABLE_CCACHE }} = true ]; then
