@@ -311,9 +311,9 @@ jobs:
           elif ["$subdir_count" -eq 1 ]; then
             subdir_path=$(find "clang-custom" -mindepth 1 -maxdepth 1 -type d)
             subdir_name=$(basename "$subdir_path")
-            export CUSTOM_CLANG_DIR="/$subdir_name"
+            export DIR_NAME="/$subdir_name"
           fi
-          export PATH=$GITHUB_WORKSPACE/kernel_workspace/clang-custom${{CUSTOM_CLANG_DIR}}/bin:$PATH
+          export PATH=$GITHUB_WORKSPACE/kernel_workspace/clang-custom${DIR_NAME}/bin:$PATH
         else
           export PATH=$GITHUB_WORKSPACE/kernel_workspace/clang-aosp/bin:$PATH
         fi
