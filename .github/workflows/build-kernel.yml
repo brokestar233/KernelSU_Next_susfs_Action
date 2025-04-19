@@ -313,7 +313,7 @@ jobs:
             subdir_name=$(basename "$subdir_path")
             echo "DIR_NAME=/$subdir_name" >> $GITHUB_ENV
           fi
-          export PATH=$GITHUB_WORKSPACE/kernel_workspace/clang-custom${DIR_NAME}/bin:$PATH
+          export PATH=$GITHUB_WORKSPACE/kernel_workspace/clang-custom$DIR_NAME/bin:$PATH
         else
           export PATH=$GITHUB_WORKSPACE/kernel_workspace/clang-aosp/bin:$PATH
         fi
