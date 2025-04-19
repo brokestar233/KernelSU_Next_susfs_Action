@@ -327,16 +327,16 @@ jobs:
         fi
         make -j$(nproc --all) CC=clang O=out ARCH=${{ env.ARCH }} ${{ env.CUSTOM_CMDS }} ${{ env.EXTRA_CMDS }} ${{ env.GCC_64 }} ${{ env.GCC_32 }} ${{ env.KERNEL_CONFIG }}
         if [[ "${{ env.MERGE_CONFIG }}" == "true" ]]; then
-          ./scripts/kconfig/merge_config.sh -m out/.config arch/${{ env.ARCH }}/configs/${{ env.NEW_OPTIONS_PATH }}
+          cd out
+          ./scripts/kconfig/merge_config.sh -m .config ../arch/${{ env.ARCH }}/configs/${{ env.NEW_OPTIONS_PATH }}
+          cd ..
         fi
-        tree -L 2
-        cat .config
         if [ ${{ env.ENABLE_CCACHE }} = true ]; then
-            echo "Pass"
-            #make -j$(nproc --all) CC="ccache clang" O=out ARCH=${{ env.ARCH }} ${{ env.CUSTOM_CMDS }} ${{ env.EXTRA_CMDS }} ${{ env.GCC_64 }} ${{ env.GCC_32 }}
+            #echo "Pass"
+            make -j$(nproc --all) CC="ccache clang" O=out ARCH=${{ env.ARCH }} ${{ env.CUSTOM_CMDS }} ${{ env.EXTRA_CMDS }} ${{ env.GCC_64 }} ${{ env.GCC_32 }}
         else
-            echo "Pass"
-            #make -j$(nproc --all) CC=clang O=out ARCH=${{ env.ARCH }} ${{ env.CUSTOM_CMDS }} ${{ env.EXTRA_CMDS }} ${{ env.GCC_64 }} ${{ env.GCC_32 }}
+            #echo "Pass"
+            make -j$(nproc --all) CC=clang O=out ARCH=${{ env.ARCH }} ${{ env.CUSTOM_CMDS }} ${{ env.EXTRA_CMDS }} ${{ env.GCC_64 }} ${{ env.GCC_32 }}
         fi
 
     - name: Check a kernel output files
