@@ -305,7 +305,15 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
         if [[ "${{ env.USE_CUSTOM_CLANG }}" == "true" ]]; then
-          export PATH=$GITHUB_WORKSPACE/kernel_workspace/clang-custom${{env.CUSTOM_CLANG_DIR}}/bin:$PATH
+          subdir_count=$(find "clang-custom" -mindepth 1 -maxdepth 1 -type d | wc -l)
+          if [ -d "clang-custom/bin" ]; then
+            echo "Pass"
+          elif ["$subdir_count" -eq 1 ]; then
+            subdir_path=$(find "clang-custom" -mindepth 1 -maxdepth 1 -type d)
+            subdir_name=$(basename "$subdir_path")
+            export CUSTOM_CLANG_DIR="/$subdir_name"
+          fi
+          export PATH=$GITHUB_WORKSPACE/kernel_workspace/clang-custom${{CUSTOM_CLANG_DIR}}/bin:$PATH
         else
           export PATH=$GITHUB_WORKSPACE/kernel_workspace/clang-aosp/bin:$PATH
         fi
