@@ -305,13 +305,13 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
         if [[ "${{ env.USE_CUSTOM_CLANG }}" == "true" ]]; then
-          subdir_count=$(find "clang-custom" -mindepth 1 -maxdepth 1 -type d | wc -l)
+          subdir_count=$(find "../clang-custom" -mindepth 1 -maxdepth 1 -type d | wc -l)
           if [ -d "clang-custom/bin" ]; then
             echo "Pass"
-          elif ["$subdir_count" -eq 1 ]; then
-            subdir_path=$(find "clang-custom" -mindepth 1 -maxdepth 1 -type d)
+          elif [ "$subdir_count" -eq 1 ]; then
+            subdir_path=$(find "../clang-custom" -mindepth 1 -maxdepth 1 -type d)
             subdir_name=$(basename "$subdir_path")
-            export DIR_NAME="/$subdir_name"
+            echo "DIR_NAME=/$subdir_name" >> $GITHUB_ENV
           fi
           export PATH=$GITHUB_WORKSPACE/kernel_workspace/clang-custom${DIR_NAME}/bin:$PATH
         else
