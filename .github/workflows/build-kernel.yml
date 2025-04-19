@@ -25,6 +25,7 @@ jobs:
             EXTRA_CMDS
             USE_CUSTOM_CLANG
             CUSTOM_CLANG_SOURCE
+            CUSTOM_CLANG_DIR
             CUSTOM_CLANG_BRANCH
             CUSTOM_CMDS
             CLANG_BRANCH
@@ -303,7 +304,7 @@ jobs:
     - name: Build kernel
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
-        export PATH=$GITHUB_WORKSPACE/kernel_workspace/clang-aosp/bin:$PATH
+        export PATH=$GITHUB_WORKSPACE/kernel_workspace/clang-aosp${{env.CUSTOM_CLANG_DIR}}/bin:$PATH
         export KBUILD_BUILD_HOST=Github-Action
         export KBUILD_BUILD_USER=$(echo ${{ github.actor }} | tr A-Z a-z)
         clang -v
