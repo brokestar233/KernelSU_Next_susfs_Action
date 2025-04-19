@@ -312,8 +312,10 @@ jobs:
             subdir_path=$(find "../clang-custom" -mindepth 1 -maxdepth 1 -type d)
             subdir_name=$(basename "$subdir_path")
             echo "DIR_NAME=/$subdir_name" >> $GITHUB_ENV
+            echo $DIR_NAME
           fi
           export PATH=$GITHUB_WORKSPACE/kernel_workspace/clang-custom$DIR_NAME/bin:$PATH
+          echo $PATH
         else
           export PATH=$GITHUB_WORKSPACE/kernel_workspace/clang-aosp/bin:$PATH
         fi
