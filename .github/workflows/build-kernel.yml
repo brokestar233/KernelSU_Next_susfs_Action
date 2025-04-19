@@ -304,7 +304,11 @@ jobs:
     - name: Build kernel
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
-        export PATH=$GITHUB_WORKSPACE/kernel_workspace/clang-aosp${{env.CUSTOM_CLANG_DIR}}/bin:$PATH
+        if [[ "${{ env.USE_CUSTOM_CLANG }}" == "true" ]]; then
+          export PATH=$GITHUB_WORKSPACE/kernel_workspace/clang-custom${{env.CUSTOM_CLANG_DIR}}/bin:$PATH
+        else
+          export PATH=$GITHUB_WORKSPACE/kernel_workspace/clang-aosp/bin:$PATH
+        fi
         export KBUILD_BUILD_HOST=Github-Action
         export KBUILD_BUILD_USER=$(echo ${{ github.actor }} | tr A-Z a-z)
         clang -v
