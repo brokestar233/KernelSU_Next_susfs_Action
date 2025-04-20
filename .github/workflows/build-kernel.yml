@@ -132,7 +132,7 @@ jobs:
             unzip clang.zip -d clang-custom/
           elif [[ "${{ env.CUSTOM_CLANG_SOURCE }}" == *'.7z' ]]; then
             wget -O clang.7z ${{ env.CUSTOM_CLANG_SOURCE }}
-            7z x clang.7z -o clang-custom
+            7z x clang.7z -o"clang-custom"
           elif [[ "${{ env.CUSTOM_CLANG_SOURCE }}" == *"antman" ]]; then
             mkdir clang-custom
             cd clang-custom
