@@ -309,7 +309,7 @@ jobs:
         if [[ "${{ env.USE_CUSTOM_CLANG }}" == "true" ]]; then
           subdir_count=$(find "../clang-custom" -mindepth 1 -maxdepth 1 -type d | wc -l)
           if [ -d "clang-custom/bin" ]; then
-            echo "Pass"
+            export PATH=$GITHUB_WORKSPACE/kernel_workspace/clang-custom/bin:$PATH
           elif [ "$subdir_count" -eq 1 ]; then
             subdir_path=$(find "../clang-custom" -mindepth 1 -maxdepth 1 -type d)
             subdir_name=$(basename "$subdir_path")
